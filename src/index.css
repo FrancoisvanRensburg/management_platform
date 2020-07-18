@@ -1,0 +1,35 @@
+@font-face {
+  font-family: 'NunitoStdRegular';
+  src: url('./App/assets/fonts/Nunito-Regular.woff') format('woff'),
+    url('./App/assets/fonts/Nunito-Regular.woff2') format('woff2'),
+    url('./App/assets/fonts/Nunito-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NunitoStdBold';
+  src: url('./App/assets/fonts/Nunito-Bold.woff') format('woff'),
+    url('./App/assets/fonts/Nunito-Bold.woff2') format('woff2'),
+    url('./App/assets/fonts/Nunito-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NunitoStdLight';
+  src: url('./App/assets/fonts/Nunito-Light.woff') format('woff'),
+    url('./App/assets/fonts/Nunito-Light.woff2') format('woff2'),
+    url('./App/assets/fonts/Nunito-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NunitoStdSemiBold';
+  src: url('./App/assets/fonts/Nunito-SemiBold.woff') format('woff'),
+    url('./App/assets/fonts/Nunito-SemiBold.woff2') format('woff2'),
+    url('./App/assets/fonts/Nunito-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}

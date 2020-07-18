@@ -1,0 +1,199 @@
+import React, { useRef, Fragment } from 'react';
+import moment from 'moment';
+import Moment from 'react-moment';
+import { Formik, Form } from 'formik';
+import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  getTask,
+  updateTask,
+} from '../../../../../Redux/actions/projectActions';
+
+import TaskCommentBox from './Comments';
+
+import Modal from '../../../../../shared/components/ModalTwo';
+import ProgressBar from '../../../../../shared/components/ProgressBar';
+import CircleProgressBar from '../../../../../shared/components/CircleProgressBar';
+import { SubmitButton } from '../../../../../shared/components/Buttons';
+
+import {
+  MyTextInput,
+  MyTextarea,
+} from '../../../../../shared/components/Forms';
+
+import { CardItem, CardHeader, TaskProject, CardFooter } from './Styles';
+
+import { progressBarColors } from '../../../../../shared/utils/Styles';
+
+const TaskCard = ({ task }) => {
+  const tsk = useSelector((store) => store.project.task);
+  const modalRef = useRef();
+
+  const openModal = () => {
+    modalRef.current.openModal();
+  };
+
+  const dispatch = useDispatch();
+
+  const endDate = moment(task.actualenddate);
+  const startDate = moment(task.actualstartdate);
+  const currentDate = moment(Date.now());
+
+  const durCalc = () => {
+    return Math.round(endDate.diff(startDate) / (3600 * 1000) / 24 + 1).toFixed(
+      0
+    );
+  };
+  return (
+    <>
+      <CardItem
+        onClick={() => {
+          dispatch(getTask(task._id));
+          openModal();
+        }}
+      >
+        <CardHeader>
+          <h3>{task.taskname}</h3>
+          <CircleProgressBar
+            progress={task.progress}
+            size={40}
+            strokeWidth={5}
+            circleOneStroke={`${progressBarColors.greenComponent}`}
+            circleTwoStroke={`${progressBarColors.greenFiller}`}
+          />
+          {/* <span>{task.progress}%</span> */}
+        </CardHeader>
+        <TaskProject>
+          <span>Proj: </span>
+          <span>{task.project.projectname}</span>
+        </TaskProject>
+        <CardFooter>
+          <div>
+            <span>start on: </span>
+            <span>
+              <Moment format='ddd'>{task.actualstartdate}</Moment>
+            </span>
+          </div>
+          <div>
+            <span>dur: </span>
+            <span>{durCalc()} days</span>
+          </div>
+        </CardFooter>
+      </CardItem>
+      <Modal ref={modalRef} width={80} top={450}>
+        <Fragment>
+          {tsk === null ? (
+            <div>Loading...</div>
+          ) : (
+            <Fragment>
+              <h1 style={{ textAlign: 'center' }}>{task.taskname}</h1>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 20,
+                }}
+              >
+                <span
+                  style={{
+                    height: '30px',
+                    lineHeight: '30px',
+                    padding: '0 20px',
+                    border: '1px solid red',
+                  }}
+                >
+                  <Moment format='YYYY/MM/DD'>{tsk.actualstartdate}</Moment>
+                </span>
+                <div style={{ height: 40, width: '50%' }}>
+                  <ProgressBar percentage={tsk.progress} />
+                </div>
+                <span
+                  style={{
+                    height: '30px',
+                    lineHeight: '30px',
+                    padding: '0 20px',
+                    border: '1px solid red',
+                  }}
+                >
+                  <Moment format='YYYY/MM/DD'>{tsk.actualenddate}</Moment>
+                </span>
+              </div>
+              <div style={{ display: 'flex', gap: 30 }}>
+                <div style={{ width: '60%' }}>
+                  <Formik
+                    enableReinitialize={true}
+                    initialValues={{
+                      description:
+                        tsk === null || !tsk.description ? '' : tsk.description,
+                      progress:
+                        tsk === null || !tsk.progress ? '' : tsk.progress,
+                    }}
+                    onSubmit={(values, { setSubmitting }) => {
+                      {
+                        tsk !== null && dispatch(updateTask(task._id, values));
+                      }
+                      modalRef.current.close();
+                      setSubmitting(false);
+                    }}
+                  >
+                    <Form>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          alignItems: 'center',
+                          margin: '20px 0',
+                        }}
+                      >
+                        <div
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 10,
+                          }}
+                        >
+                          <label htmlFor=''>Progress:</label>
+                          <MyTextInput name='progress' type='number' />
+                        </div>
+                        <div>
+                          <span>Effort: </span>
+                          <span>
+                            {tsk.effort}
+                            {' hr(s)'}
+                          </span>
+                        </div>
+                      </div>
+                      <div>
+                        <label htmlFor=''>Description</label>
+                        <div
+                          style={{ height: '150px', boxSizing: 'border-box' }}
+                        >
+                          <MyTextarea name='description' type='text' />
+                        </div>
+                      </div>
+                      <div
+                        style={{
+                          margin: '10px 0',
+                          display: 'flex',
+                          justifyContent: 'flex-end',
+                        }}
+                      >
+                        <SubmitButton text={'update'} />
+                      </div>
+                    </Form>
+                  </Formik>
+                </div>
+                <div style={{ width: '40%' }}>
+                  <TaskCommentBox task={tsk} />
+                </div>
+              </div>
+            </Fragment>
+          )}
+        </Fragment>
+      </Modal>
+    </>
+  );
+};
+
+export default TaskCard;
