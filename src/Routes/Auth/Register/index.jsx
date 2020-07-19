@@ -8,13 +8,7 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { registerCompany } from '../../../Redux/actions/authActions';
 
 // Components
-import {
-  AuthRegister,
-  FormGroup,
-  AdminCridentials,
-  FormSubmit,
-} from './Styles';
-import Input from '../../../shared/components/Input';
+import { AuthRegister, AdminCridentials, FormSubmit } from './Styles';
 import { MyTextInput } from '../../../shared/components/Forms';
 import { SubmitButton } from '../../../shared/components/Buttons';
 
@@ -36,7 +30,7 @@ const Register = () => {
           initialValues={{
             longname: '',
             shortname: '',
-            projectprefix: '',
+            // projectprefix: '',
             email: '',
             password: '',
             password2: '',
@@ -50,11 +44,11 @@ const Register = () => {
             shortname: Yup.string()
               .max(9, 'Domain must be 9 characters or less')
               .required('Domain is required'),
-            projectprefix: Yup.string()
-              .max(5, 'Must be 5 characters or less')
-              .required(
-                'A project prefix is required for you to create projects'
-              ),
+            // projectprefix: Yup.string()
+            //   .max(5, 'Must be 5 characters or less')
+            //   .required(
+            //     'A project prefix is required for you to create projects'
+            //   ),
             email: Yup.string()
               .email('Invalid email address')
               .required('Admin email is required'),

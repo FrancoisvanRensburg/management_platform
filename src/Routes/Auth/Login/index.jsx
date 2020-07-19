@@ -10,7 +10,7 @@ import Alert from '../../../shared/components/Alert';
 
 import { SubmitButton } from '../../../shared/components/Buttons';
 import { MyTextInput } from '../../../shared/components/Forms';
-import { AuthContent, AuthBox, FormGroup, FormSubmit } from './Styles';
+import { AuthContent, AuthBox, FormSubmit } from './Styles';
 
 const Login = ({ login, isAuthenticated, loading }) => {
   if (isAuthenticated && !loading) {
