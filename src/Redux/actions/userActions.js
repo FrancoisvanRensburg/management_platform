@@ -6,6 +6,7 @@ import {
   GET_USERS,
   TASK_ERROR,
   GET_TASKS_USER,
+  GET_TASK_COMMENTS,
   GET_USER_PROJECTS,
   PROJECT_ERROR,
   GET_TASK_USER,
@@ -107,7 +108,22 @@ export const getUserTask = (taskId) => async (dispatch) => {
   }
 };
 
-export const addTaskComment = (taskId, formData) => async (dispatch) => {
+export const getTaskComments = (taskId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/tasks/comments/${taskId}`);
+    dispatch({
+      type: GET_TASK_COMMENTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: TASK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const addTaskComment = (taskId, values) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -115,9 +131,9 @@ export const addTaskComment = (taskId, formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put(
-      `/api/tasks/comment/${taskId}`,
-      formData,
+    const res = await axios.post(
+      `/api/comments/task/${taskId}`,
+      values,
       config
     );
     dispatch({
@@ -131,6 +147,31 @@ export const addTaskComment = (taskId, formData) => async (dispatch) => {
     });
   }
 };
+
+// export const addTaskComment = (taskId, formData) => async (dispatch) => {
+//   try {
+//     const config = {
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     };
+
+//     const res = await axios.put(
+//       `/api/tasks/comment/${taskId}`,
+//       formData,
+//       config
+//     );
+//     dispatch({
+//       type: ADD_TASK_COMMENT,
+//       payload: res.data,
+//     });
+//   } catch (err) {
+//     dispatch({
+//       type: TASK_ERROR,
+//       payload: { msg: err.response.statusText, status: err.response.status },
+//     });
+//   }
+// };
 
 // Get all projects for user
 export const getUserProjects = () => async (dispatch) => {

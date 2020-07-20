@@ -68,10 +68,17 @@ export default function (state = initialState, action) {
         // contributors: payload,
         loading: false,
       };
+    case GET_TASK_COMMENTS:
+      return {
+        ...state,
+        taskComments: payload,
+        loading: false,
+      };
     case ADD_TASK_COMMENT:
       return {
         ...state,
-        task: { ...state.task, comments: payload },
+        taskComments: payload,
+        // task: { ...state.task, comments: payload },
         loading: false,
       };
     case GET_PROJECT_COMMENTS:

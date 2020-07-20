@@ -176,7 +176,11 @@ const TaskDetail = ({ project }) => {
             </TimeStamp>
           </Form>
         </Formik>
-        <TaskCommentBox task={task} />
+        {task === null ? (
+          <div>No task selected</div>
+        ) : (
+          <TaskCommentBox task={task} />
+        )}
       </TaskDetailSubContainer>
     </TaskDetailContainer>
   );

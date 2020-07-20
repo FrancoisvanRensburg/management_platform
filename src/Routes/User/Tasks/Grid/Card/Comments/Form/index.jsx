@@ -15,7 +15,7 @@ const CommentForm = ({ task }) => {
     <div>
       <Formik
         initialValues={{
-          text: '',
+          message: '',
         }}
         validationSchema={Yup.object({
           text: Yup.string()
@@ -33,7 +33,7 @@ const CommentForm = ({ task }) => {
       >
         <Form>
           <div style={{ width: '100%', height: '60px', marginBottom: '10px' }}>
-            <MyTextarea name='text' placeholder='Comment text' />
+            <MyTextarea name='message' placeholder='Comment text' />
           </div>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <CommentButton />

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getTaskComments } from '../../../../../../Redux/actions/projectActions';
 
 import CommentForm from './Form';
 import CommentItem from './Thread';
@@ -9,7 +12,13 @@ import {
   CommentThreadContainer,
 } from './Styles';
 
-const TaskCommentBox = ({ task }) => {
+const TaskCommentBox = () => {
+  const dispatch = useDispatch();
+  const task = useSelector((store) => store.project.task);
+  useEffect(() => {
+    dispatch(getTaskComments(task._id));
+  }, [dispatch]);
+  const comments = useSelector((store) => store.project.taskComments);
   return (
     <CommentSection>
       <CommentFormSection style={{ width: '50%' }}>
@@ -19,7 +28,7 @@ const TaskCommentBox = ({ task }) => {
         {task === null ? (
           <div> </div>
         ) : (
-          task.comments.map((comment) => (
+          comments.map((comment) => (
             <CommentItem key={comment._id} comment={comment} />
           ))
         )}

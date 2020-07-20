@@ -13,9 +13,9 @@ const CommentForm = ({ project }) => {
   return (
     <div>
       <Formik
-        initialValues={{ text: '' }}
+        initialValues={{ message: '' }}
         validateSchema={Yup.object({
-          text: Yup.string()
+          message: Yup.string()
             .min(2, 'Must be at least 2 characters')
             .max(240, 'Cannot exceed 240 characters'),
         })}

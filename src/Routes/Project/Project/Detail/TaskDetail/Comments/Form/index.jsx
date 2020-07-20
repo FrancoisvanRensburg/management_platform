@@ -17,10 +17,10 @@ const CommentForm = ({ task }) => {
     <div style={{ width: '90%' }}>
       <Formik
         initialValues={{
-          text: '',
+          message: '',
         }}
         validationSchema={Yup.object({
-          text: Yup.string()
+          message: Yup.string()
             .min(10, 'Comment must be 10 characters or less')
             .max(
               240,
@@ -35,7 +35,7 @@ const CommentForm = ({ task }) => {
       >
         <Form>
           <div style={{ width: '95%', height: '120px', marginBottom: '28px' }}>
-            <MyTextarea name='text' placeholder='Comment text' />
+            <MyTextarea name='message' placeholder='Comment text' />
           </div>
           <SubmitSection>
             <CommentButton />

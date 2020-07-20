@@ -185,7 +185,11 @@ const TaskCard = ({ task }) => {
                   </Formik>
                 </div>
                 <div style={{ width: '40%' }}>
-                  <TaskCommentBox task={tsk} />
+                  {task === null ? (
+                    <div>No task comments</div>
+                  ) : (
+                    <TaskCommentBox task={tsk} />
+                  )}
                 </div>
               </div>
             </Fragment>

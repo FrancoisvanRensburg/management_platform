@@ -12,15 +12,15 @@ const CommentItem = ({ comment }) => {
   return (
     <CommentItemStyles>
       <CommentItemHeader>
-        <CommenterName>{comment.name}</CommenterName>
+        <CommenterName>{comment.author.name}</CommenterName>
         <CommentDate>
           <em>
-            <Moment format='Do MMM HH:MM'>{comment.date}</Moment>
+            <Moment format='Do MMM HH:mm'>{comment.date}</Moment>
           </em>
         </CommentDate>
       </CommentItemHeader>
       <div>
-        <p>{comment.text}</p>
+        <p>{comment.message}</p>
       </div>
     </CommentItemStyles>
   );

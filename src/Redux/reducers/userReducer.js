@@ -6,6 +6,7 @@ import {
   TASK_ERROR,
   GET_TASK_USER,
   ADD_TASK_COMMENT,
+  GET_TASK_COMMENTS,
   CLEAR_USER,
   GET_USER_PROJECTS,
   PROJECT_ERROR,
@@ -18,6 +19,8 @@ const initialState = {
   tasks: [],
   task: null,
   loading: true,
+  taskComments: [],
+  taskComment: null,
   errors: {},
 };
 
@@ -56,10 +59,17 @@ export default function (state = initialState, action) {
         task: payload,
         loading: false,
       };
+    case GET_TASK_COMMENTS:
+      return {
+        ...state,
+        taskComments: payload,
+        loading: false,
+      };
     case ADD_TASK_COMMENT:
       return {
         ...state,
-        task: { ...state.task, comments: payload },
+        taskComments: payload,
+        // task: { ...state.task, comments: payload },
         loading: false,
       };
     case TASK_ERROR:

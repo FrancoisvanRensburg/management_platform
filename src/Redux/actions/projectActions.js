@@ -13,6 +13,7 @@ import {
   GET_TASKS_PROJECT,
   ADD_CONTRIBUTOR,
   PROJECT_MISC,
+  GET_TASK_COMMENTS,
 } from './types';
 
 // Create a project
@@ -208,8 +209,23 @@ export const updateProjectSetup = (projectId, values) => async (dispatch) => {
   }
 };
 
-// // Comment on a task
-export const addTaskCommentProject = (taskId, formData) => async (dispatch) => {
+export const getTaskComments = (taskId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/tasks/comments/${taskId}`);
+    dispatch({
+      type: GET_TASK_COMMENTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: TASK_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Add task comment to new api endpoint
+export const addTaskCommentProject = (taskId, values) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -217,9 +233,9 @@ export const addTaskCommentProject = (taskId, formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put(
-      `/api/tasks/comment/${taskId}`,
-      formData,
+    const res = await axios.post(
+      `/api/comments/task/${taskId}`,
+      values,
       config
     );
     dispatch({
