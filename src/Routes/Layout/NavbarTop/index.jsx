@@ -9,8 +9,9 @@ import { logout } from '../../../Redux/actions/authActions';
 import { ReactComponent as WhippLogo } from '../../../App/assets/images/logo.svg';
 import { ReactComponent as SeactIcon } from '../../../App/assets/images/search.svg';
 import { ReactComponent as ChatIcon } from '../../../App/assets/images/chat-icon.svg';
-import { ReactComponent as AlertIcon } from '../../../App/assets/images/alert.svg';
 import { ReactComponent as AvatarIcon } from '../../../App/assets/images/avatar.svg';
+
+import Bubble from './Notifications/Actions/Bubble';
 
 // Styled components
 import { NavWrapper, NotLogoLinks, StyledLink } from './Styles';
@@ -21,13 +22,12 @@ const NavbarTop = ({ isAuthenticated, loading, logout, history }) => {
   const onLogout = () => {
     dispatch(logout());
     history.push('/');
-    console.log('logout selected');
   };
   const authLinks = (
     <NotLogoLinks>
       <SeactIcon />
       <ChatIcon />
-      <AlertIcon />
+      <Bubble />
       <StyledLink onClick={logout} to='/login'>
         Logout
       </StyledLink>

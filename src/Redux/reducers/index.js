@@ -5,6 +5,7 @@ import companyReducer from './companyReducer';
 import clientReducer from './clientReducer';
 import userReducer from './userReducer';
 import projectReducer from './projectReducer';
+import notificationReducer from './notificationReducer';
 
 export default combineReducers({
   alert: alertReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   user: userReducer,
   project: projectReducer,
   client: clientReducer,
+  notification: notificationReducer,
 });
