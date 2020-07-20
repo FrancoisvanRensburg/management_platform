@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 
 import { login } from '../../../Redux/actions/authActions';
 import Alert from '../../../shared/components/Alert';
+// import Alert2 from '../../../shared/components/Alert2';
 
 import { SubmitButton } from '../../../shared/components/Buttons';
 import { MyTextInput } from '../../../shared/components/Forms';

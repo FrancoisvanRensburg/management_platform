@@ -9,7 +9,7 @@ import {
   GET_USER_PROJECTS,
   PROJECT_ERROR,
   GET_TASK_USER,
-  ADD_COMMENT,
+  ADD_TASK_COMMENT,
 } from './types';
 import { setAlert } from './alertActions';
 
@@ -121,7 +121,7 @@ export const addTaskComment = (taskId, formData) => async (dispatch) => {
       config
     );
     dispatch({
-      type: ADD_COMMENT,
+      type: ADD_TASK_COMMENT,
       payload: res.data,
     });
   } catch (err) {

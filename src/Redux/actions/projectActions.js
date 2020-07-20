@@ -7,8 +7,9 @@ import {
   ADD_TASK,
   TASK_ERROR,
   GET_TASK,
-  ADD_COMMENT,
+  ADD_TASK_COMMENT,
   ADD_PROJECT_COMMENT,
+  GET_PROJECT_COMMENTS,
   GET_TASKS_PROJECT,
   ADD_CONTRIBUTOR,
   PROJECT_MISC,
@@ -222,7 +223,7 @@ export const addTaskCommentProject = (taskId, formData) => async (dispatch) => {
       config
     );
     dispatch({
-      type: ADD_COMMENT,
+      type: ADD_TASK_COMMENT,
       payload: res.data,
     });
   } catch (err) {
@@ -233,8 +234,23 @@ export const addTaskCommentProject = (taskId, formData) => async (dispatch) => {
   }
 };
 
+export const getProjectComments = (projectId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/projects/comments/${projectId}`);
+    dispatch({
+      type: GET_PROJECT_COMMENTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // // Comment on a Project
-export const addCommentProject = (projectId, formData) => async (dispatch) => {
+export const addCommentProject = (projectId, values) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -242,9 +258,9 @@ export const addCommentProject = (projectId, formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put(
-      `/api/projects/comment/${projectId}`,
-      formData,
+    const res = await axios.post(
+      `/api/comments/project/${projectId}`,
+      values,
       config
     );
     dispatch({
@@ -253,7 +269,7 @@ export const addCommentProject = (projectId, formData) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: TASK_ERROR,
+      type: PROJECT_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

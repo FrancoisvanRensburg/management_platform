@@ -5,8 +5,10 @@ import {
   ADD_TASK,
   TASK_ERROR,
   GET_TASK,
-  ADD_COMMENT,
+  ADD_TASK_COMMENT,
   ADD_PROJECT_COMMENT,
+  GET_PROJECT_COMMENTS,
+  GET_TASK_COMMENTS,
   ADD_CONTRIBUTOR,
   PROJECT_MISC,
   GET_TASKS_PROJECT,
@@ -19,6 +21,10 @@ const initialState = {
   tasks: [],
   loading: true,
   errors: {},
+  projectComments: [],
+  projectComment: null,
+  taskComments: [],
+  taskComment: null,
 };
 
 export default function (state = initialState, action) {
@@ -62,16 +68,23 @@ export default function (state = initialState, action) {
         // contributors: payload,
         loading: false,
       };
-    case ADD_COMMENT:
+    case ADD_TASK_COMMENT:
       return {
         ...state,
         task: { ...state.task, comments: payload },
         loading: false,
       };
+    case GET_PROJECT_COMMENTS:
+      return {
+        ...state,
+        projectComments: payload,
+        loading: false,
+      };
     case ADD_PROJECT_COMMENT:
       return {
         ...state,
-        project: { ...state.project, comments: payload },
+        projectComments: payload,
+        // project: { ...state.project, comments: payload },
         loading: false,
       };
     case GET_TASKS_PROJECT:

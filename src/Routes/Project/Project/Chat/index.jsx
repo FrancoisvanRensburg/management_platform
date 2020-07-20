@@ -1,5 +1,7 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { getProjectComments } from '../../../../Redux/actions/projectActions';
 
 import CommentForm from './Form';
 import CommentItem from './Thread';
@@ -12,17 +14,23 @@ import {
 } from './Styles';
 
 const ProjectChat = () => {
+  const dispatch = useDispatch();
   const project = useSelector((store) => store.project.project);
+  useEffect(() => {
+    dispatch(getProjectComments(project._id));
+  }, [dispatch]);
+  const comments = useSelector((store) => store.project.projectComments);
+
   return (
     <CommentSection>
       <CommentInnerContainer>
         <CommentThreadContainer>
           {project === null ? (
             <div></div>
-          ) : project.comments.length === 0 ? (
+          ) : comments.length === 0 ? (
             <div>No conversation started</div>
           ) : (
-            project.comments
+            comments
               .slice()
               .reverse()
               .map((comment) => (

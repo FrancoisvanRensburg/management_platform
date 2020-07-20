@@ -5,7 +5,7 @@ import {
   GET_TASKS_USER,
   TASK_ERROR,
   GET_TASK_USER,
-  ADD_COMMENT,
+  ADD_TASK_COMMENT,
   CLEAR_USER,
   GET_USER_PROJECTS,
   PROJECT_ERROR,
@@ -56,7 +56,7 @@ export default function (state = initialState, action) {
         task: payload,
         loading: false,
       };
-    case ADD_COMMENT:
+    case ADD_TASK_COMMENT:
       return {
         ...state,
         task: { ...state.task, comments: payload },

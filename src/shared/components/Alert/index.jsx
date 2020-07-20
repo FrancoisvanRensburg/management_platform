@@ -9,6 +9,7 @@ const StyledAlert = styled.div`
   ${font.size(18)};
   color: ${color.buttonPink};
   ${font.medium};
+  position: absolute;
 `;
 
 const Alert = () => {
