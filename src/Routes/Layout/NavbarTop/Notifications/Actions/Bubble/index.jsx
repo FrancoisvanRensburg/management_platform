@@ -5,6 +5,8 @@ import { ReactComponent as AlertIcon } from '../../../../../../App/assets/images
 
 import Dropdown from '../Dropdown';
 
+import { NotificationIcon } from './Styles';
+
 const Bubble = () => {
   const notifications = useSelector(
     (store) => store.auth.user.actionnotifications
@@ -16,10 +18,7 @@ const Bubble = () => {
 
   return (
     <div style={{ position: 'relative' }}>
-      <div
-        style={{
-          position: 'relative',
-        }}
+      <NotificationIcon
         onClick={() => toggleNotificationDropdown(!displayNotificationDropdown)}
       >
         <div
@@ -40,9 +39,9 @@ const Bubble = () => {
           {notifications === null ? 0 : notifications.length}
         </div>
         <AlertIcon />
-      </div>
+      </NotificationIcon>
       {displayNotificationDropdown && (
-        <div style={{ position: 'absolute', top: '35px', right: '-30px' }}>
+        <div style={{ position: 'absolute', top: '30px', right: '-30px' }}>
           <Dropdown />
         </div>
       )}

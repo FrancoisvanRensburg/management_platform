@@ -17,9 +17,10 @@ const Dropdown = () => {
     <div
       style={{
         width: '300px',
-        height: '300px',
+        height: 'auto',
         backgroundColor: 'black',
         border: '1px solid red',
+        boxSizing: 'border-box',
       }}
     >
       {notifications === null ? (
