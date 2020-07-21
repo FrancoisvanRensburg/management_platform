@@ -13,7 +13,12 @@ const List = () => {
         <ProjectDetail project={project} />
         <ProjectSecions project={project} />
       </div>
-      <div style={{ width: '70%', border: '1px solid red' }}>
+      <div
+        style={{
+          width: '70%',
+          border: '1px solid red',
+        }}
+      >
         <ProjectTasks project={project} />
       </div>
     </div>

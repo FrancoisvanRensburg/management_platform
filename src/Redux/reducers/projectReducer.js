@@ -59,7 +59,8 @@ export default function (state = initialState, action) {
     case ADD_TASK:
       return {
         ...state,
-        project: { ...state.project, tasks: payload },
+        tasks: payload,
+        // project: { ...state.project, tasks: payload },
         loading: false,
       };
     case GET_PROJECT_SECTIONS:

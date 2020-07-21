@@ -1,34 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+import { getProjectTasks } from '../../../../../Redux/actions/projectActions';
+
 import Task from './Task';
-import TaskForm from './Task/TaskForm';
+import TaskForm from './TaskForm';
+
+import { Table, THead } from './Styles';
 
 const ProjectTasks = ({ project }) => {
-  const tasks = useSelector((store) => store.project.project.tasks);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProjectTasks(project._id));
+  }, [dispatch]);
+  const tasks = useSelector((store) => store.project.tasks);
   return (
-    <div>
+    <div style={{ boxSizing: 'border-box' }}>
       <div style={{ textAlign: 'center' }}>
         <h1>Project tasks</h1>
       </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <div style={{ border: '1px solid red', width: '25%' }}>Task name</div>
-        <div style={{ border: '1px solid red', width: '15%' }}>Task label</div>
-        <div style={{ border: '1px solid red', width: '15%' }}>
-          Task assignee
-        </div>
-        <div style={{ border: '1px solid red', width: '15%' }}>
-          Task start date
-        </div>
-        <div style={{ border: '1px solid red', width: '15%' }}>
-          Task end date
-        </div>
-        <div style={{ border: '1px solid red', width: '15%' }}>Task effort</div>
+      <div>
+        <Table>
+          <thead>
+            <THead style={{ width: '24%' }}>Task name</THead>
+            <THead style={{ width: '14%' }}>Section</THead>
+            <THead style={{ width: '14%' }}>Start date</THead>
+            <THead style={{ width: '14%' }}>End date</THead>
+            <THead style={{ width: '17%' }}>Assignee</THead>
+            <THead style={{ width: '17%' }}>Status</THead>
+          </thead>
+          {tasks !== null &&
+            tasks.map((task) => (
+              <Task key={task._id} task={task} project={project} />
+            ))}
+        </Table>
       </div>
-      {tasks !== null &&
-        tasks.map((task) => (
-          <Task key={task._id} task={task} project={project} />
-        ))}
       <TaskForm projectId={project._id} />
     </div>
   );

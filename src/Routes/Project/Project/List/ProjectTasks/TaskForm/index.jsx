@@ -3,11 +3,11 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
-import { addTask } from '../../../../../../../Redux/actions/projectActions';
+import { addTask } from '../../../../../../Redux/actions/projectActions';
 
-import { MyTextInput } from '../../../../../../../shared/components/Forms';
+import { MyTextInput } from '../../../../../../shared/components/Forms';
 
-const TaskFrom = ({ projectId }) => {
+const TaskForm = ({ projectId }) => {
   const dispatch = useDispatch();
   return (
     <div>
@@ -31,4 +31,4 @@ const TaskFrom = ({ projectId }) => {
   );
 };
 
-export default TaskFrom;
+export default TaskForm;
