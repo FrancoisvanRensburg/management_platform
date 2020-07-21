@@ -20,6 +20,24 @@ export const Submit = styled.button`
   }
 `;
 
+export const SubmitSml = styled.button`
+padding: 6px 20px;
+${font.bold}
+${font.size(18)}
+color: ${color.textDark};
+  background-color: ${color.buttonGreen};
+  border-radius: ${radius.buttonRadius};
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    color: ${color.buttonGreen};
+    background-color: transparent;
+    border: 2px solid ${color.buttonGreen};
+    padding: 4px 18px;
+  }
+`;
+
 export const Comment = styled.button`
   padding: 5px 15px;
   max-width: 150px;
@@ -56,5 +74,34 @@ export const DetailOutline = styled.div`
     border-radius: 50%;
     margin: 0 2px;
     background-color: ${color.textParagraph};
+  }
+`;
+
+export const WaffleRow = styled.div`
+  display: flex;
+  & div {
+    width: 7px;
+    height: 7px;
+    margin: 1px;
+    border-radius: 1px;
+    background-color: ${color.backgroundLightPrimary};
+  }
+`;
+
+export const WaffleButton = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+
+  &:hover {
+    cursor: pointer;
+    & div {
+      & div {
+        background-color: ${color.tabBackgroundLight};
+      }
+    }
   }
 `;

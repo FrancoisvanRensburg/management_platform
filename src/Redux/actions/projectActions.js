@@ -14,6 +14,10 @@ import {
   ADD_CONTRIBUTOR,
   PROJECT_MISC,
   GET_TASK_COMMENTS,
+  GET_PROJECT_SECTIONS,
+  ADD_PROJECT_SECTION,
+  ADD_SECTION_TO_TASK,
+  GET_TASKS_PER_SECTION,
 } from './types';
 
 // Create a project
@@ -294,9 +298,50 @@ export const addCommentProject = (projectId, values) => async (dispatch) => {
 // remember to change api endpoint to /api/projects/tasks/:projectId
 export const getProjectTasks = (projectId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/tasks/project/${projectId}`);
+    const res = await axios.get(`/api/projects/tasks/${projectId}`);
     dispatch({
       type: GET_TASKS_PROJECT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getProjectSections = (projectId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/projects/sections/${projectId}`);
+    dispatch({
+      type: GET_PROJECT_SECTIONS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Create a section in a project
+export const addProjectSection = (projectId, values) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const res = await axios.post(
+      `/api/projects/sections/${projectId}`,
+      values,
+      config
+    );
+    dispatch({
+      type: ADD_PROJECT_SECTION,
       payload: res.data,
     });
   } catch (err) {

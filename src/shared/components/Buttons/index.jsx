@@ -1,13 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Submit, Comment, DetailOutline } from './Styles';
+import {
+  Submit,
+  Comment,
+  DetailOutline,
+  SubmitSml,
+  WaffleButton,
+  WaffleRow,
+} from './Styles';
 
 export const SubmitButton = ({ text }) => {
   return <Submit>{text}</Submit>;
 };
 
 SubmitButton.propTypes = {
+  text: PropTypes.string,
+};
+
+export const SubmitButtonSm = ({ text }) => {
+  return <SubmitSml>{text}</SubmitSml>;
+};
+
+SubmitButtonSm.propTypes = {
   text: PropTypes.string,
 };
 
@@ -22,5 +37,27 @@ export const DetailButton = () => {
       <div />
       <div />
     </DetailOutline>
+  );
+};
+
+export const Waffle = () => {
+  return (
+    <WaffleButton>
+      <WaffleRow>
+        <div />
+        <div />
+        <div />
+      </WaffleRow>
+      <WaffleRow>
+        <div />
+        <div />
+        <div />
+      </WaffleRow>
+      <WaffleRow>
+        <div />
+        <div />
+        <div />
+      </WaffleRow>
+    </WaffleButton>
   );
 };

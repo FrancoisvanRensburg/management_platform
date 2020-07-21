@@ -12,6 +12,7 @@ export const color = {
   buttonGreenHover: 'rgba(0, 236, 126, 0.95)',
   buttonPink: 'rgba(255, 0, 85, 0.8)',
   buttonPurple: 'rgba(155, 110, 255, 0.7)',
+  buttonBlue: 'rgba(3, 85, 207, 0.82)',
 
   textHeading: 'rgba(255, 255, 255, 0.9)',
   textSubHeading: 'rgba(255, 255, 255, 0.8)',

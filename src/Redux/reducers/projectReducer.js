@@ -12,6 +12,10 @@ import {
   ADD_CONTRIBUTOR,
   PROJECT_MISC,
   GET_TASKS_PROJECT,
+  GET_PROJECT_SECTIONS,
+  ADD_PROJECT_SECTION,
+  ADD_SECTION_TO_TASK,
+  GET_TASKS_PER_SECTION,
 } from '../actions/types';
 
 const initialState = {
@@ -25,6 +29,9 @@ const initialState = {
   projectComment: null,
   taskComments: [],
   taskComment: null,
+  sections: [],
+  section: null,
+  secionTasks: [],
 };
 
 export default function (state = initialState, action) {
@@ -53,6 +60,19 @@ export default function (state = initialState, action) {
       return {
         ...state,
         project: { ...state.project, tasks: payload },
+        loading: false,
+      };
+    case GET_PROJECT_SECTIONS:
+      return {
+        ...state,
+        sections: payload,
+        loading: false,
+      };
+    // Look at adding sections to project, might be wrong and be imlimented similar to tasks, but hink this is right
+    case ADD_PROJECT_SECTION:
+      return {
+        ...state,
+        sections: payload,
         loading: false,
       };
     case PROJECT_MISC:

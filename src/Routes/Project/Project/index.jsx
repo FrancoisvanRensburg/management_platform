@@ -15,6 +15,7 @@ import ProjectOverview from './Overview';
 import ProjectDetail from './Detail';
 import ProjectChat from './Chat';
 import ProjectListView from './SetupView/List';
+import List from './List';
 
 import { ProjectPage, Container } from './Styles';
 
@@ -53,10 +54,7 @@ const Project = ({ project: { project, loading }, match }) => {
               path='/project/:projectId/detail'
               component={ProjectDetail}
             />
-            <PrivateRoute
-              path='/project/:projectId/view'
-              component={ProjectListView}
-            />
+            <PrivateRoute path='/project/:projectId/view' component={List} />
             <PrivateRoute
               path='/project/:projectId/chat'
               component={ProjectChat}
