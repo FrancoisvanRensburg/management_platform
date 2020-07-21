@@ -9,6 +9,7 @@ import {
 
 import {
   Waffle,
+  DetailButton,
   SubmitButton,
 } from '../../../../../../../shared/components/Buttons';
 import Modal from '../../../../../../../shared/components/ModalTwo';
@@ -31,14 +32,38 @@ const TaskModal = ({ task, project }) => {
       >
         <Waffle />
       </div>
-      <Modal ref={modalRef} width={80} top={450}>
-        <div>
+      <Modal ref={modalRef} width={60} top={450}>
+        {/* Header component */}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <div>
+              <h2>{project.projectcode}</h2>
+            </div>
+            {task.tasknumber && (
+              <div>
+                {' / '}
+                {task.tasknumber}
+              </div>
+            )}
+          </div>
           <div>
-            <h2>{project.projectcode}</h2>
+            <DetailButton />
           </div>
         </div>
+        {/* Main section */}
         <div>
-          <h3>{task.taskname}</h3>
+          {/* Section header */}
+          <div>
+            <h3>{task.taskname}</h3>
+          </div>
+          <div>
+            <div>attach</div>
+            <div>Add checklist</div>
+            <div>
+              <p>Predecessor</p>
+              <div></div>
+            </div>
+          </div>
         </div>
 
         <button onClick={() => modalRef.current.close()}>Close</button>

@@ -21,7 +21,7 @@ const SectionItem = ({ section }) => {
           </span>
         </div>
         <div>
-          <p>{section.tasks.length}</p>
+          {section.tasks === [] ? <p>0</p> : <p>{section.tasks.length}</p>}
         </div>
       </SectionCard>
     </div>
