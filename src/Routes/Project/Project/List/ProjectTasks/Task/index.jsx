@@ -1,11 +1,9 @@
-// Remember to change waffle and import it with the modal code in it if it works
-
 import React from 'react';
+import Moment from 'react-moment';
 
-// import { Waffle } from '../../../../../../shared/components/Buttons';
 import TaskModal from './TaskModal';
 
-const Task = ({ task }) => {
+const Task = ({ task, project }) => {
   return (
     <div
       style={{
@@ -27,12 +25,20 @@ const Task = ({ task }) => {
             margin: '0 10px 0 5px',
           }}
         >
-          <TaskModal task={task} />
+          <TaskModal task={task} project={project} />
         </div>
         <span>{task.taskname}</span>
       </div>
-      <div style={{ border: '1px solid red', width: '15%' }}>Section 1</div>
-      <div style={{ border: '1px solid red', width: '15%' }}>Unassigned</div>
+      <div style={{ border: '1px solid red', width: '15%' }}>
+        {!task.section ? <span>No section</span> : <span>{task.section}</span>}
+      </div>
+      <div style={{ border: '1px solid red', width: '15%' }}>
+        {!task.assignee ? (
+          <span>Not assigned</span>
+        ) : (
+          <span>{task.assignee}</span>
+        )}
+      </div>
       <div style={{ border: '1px solid red', width: '15%' }}>
         Fri 20 Mar 2020
       </div>

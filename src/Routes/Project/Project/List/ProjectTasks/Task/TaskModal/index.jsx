@@ -13,7 +13,7 @@ import {
 } from '../../../../../../../shared/components/Buttons';
 import Modal from '../../../../../../../shared/components/ModalTwo';
 
-const TaskModal = ({ task }) => {
+const TaskModal = ({ task, project }) => {
   const modalRef = useRef();
 
   const openModal = () => {
@@ -32,7 +32,15 @@ const TaskModal = ({ task }) => {
         <Waffle />
       </div>
       <Modal ref={modalRef} width={80} top={450}>
-        <h1>{task.taskname}</h1>
+        <div>
+          <div>
+            <h2>{project.projectcode}</h2>
+          </div>
+        </div>
+        <div>
+          <h3>{task.taskname}</h3>
+        </div>
+
         <button onClick={() => modalRef.current.close()}>Close</button>
       </Modal>
     </Fragment>

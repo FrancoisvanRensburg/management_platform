@@ -26,7 +26,9 @@ const ProjectTasks = ({ project }) => {
         <div style={{ border: '1px solid red', width: '15%' }}>Task effort</div>
       </div>
       {tasks !== null &&
-        tasks.map((task) => <Task key={task._id} task={task} />)}
+        tasks.map((task) => (
+          <Task key={task._id} task={task} project={project} />
+        ))}
       <TaskForm projectId={project._id} />
     </div>
   );
