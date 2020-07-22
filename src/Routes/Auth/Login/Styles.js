@@ -8,6 +8,7 @@ export const AuthContent = styled.div`
   width: 100%;
   height: 100%;
   text-align: center;
+  box-sizing: border-box;
 `;
 
 export const AuthBox = styled.div`

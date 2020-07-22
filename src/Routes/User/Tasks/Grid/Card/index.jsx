@@ -1,4 +1,4 @@
-import React, { useRef, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import moment from 'moment';
 import Moment from 'react-moment';
 import { Formik, Form } from 'formik';
@@ -9,13 +9,14 @@ import {
   updateTask,
 } from '../../../../../Redux/actions/projectActions';
 
+import { getUserTasks } from '../../../../../Redux/actions/userActions';
+
 import TaskCommentBox from './Comments';
 
-import Modal from '../../../../../shared/components/ModalTwo';
+import Modal from '../../../../../shared/components/ModalThree';
 import ProgressBar from '../../../../../shared/components/ProgressBar';
 import CircleProgressBar from '../../../../../shared/components/CircleProgressBar';
 import { SubmitButton } from '../../../../../shared/components/Buttons';
-
 import {
   MyTextInput,
   MyTextarea,
@@ -26,13 +27,8 @@ import { CardItem, CardHeader, TaskProject, CardFooter } from './Styles';
 import { progressBarColors } from '../../../../../shared/utils/Styles';
 
 const TaskCard = ({ task }) => {
+  const [toggleModal, setToggleModal] = useState(false);
   const tsk = useSelector((store) => store.project.task);
-  const modalRef = useRef();
-
-  const openModal = () => {
-    modalRef.current.openModal();
-  };
-
   const dispatch = useDispatch();
 
   const endDate = moment(task.actualenddate);
@@ -44,12 +40,13 @@ const TaskCard = ({ task }) => {
       0
     );
   };
+
   return (
     <>
       <CardItem
         onClick={() => {
           dispatch(getTask(task._id));
-          openModal();
+          setToggleModal(!toggleModal);
         }}
       >
         <CardHeader>
@@ -80,121 +77,128 @@ const TaskCard = ({ task }) => {
           </div>
         </CardFooter>
       </CardItem>
-      <Modal ref={modalRef} width={80} top={450}>
-        <Fragment>
-          {tsk === null ? (
-            <div>Loading...</div>
-          ) : (
-            <Fragment>
-              <h1 style={{ textAlign: 'center' }}>{task.taskname}</h1>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: 20,
-                }}
-              >
-                <span
+      <Modal toggle={toggleModal} setToggle={setToggleModal}>
+        {tsk === null ? (
+          <div>Loading...</div>
+        ) : (
+          <Fragment>
+            <Modal.Header>{task.taskname}</Modal.Header>
+            <Modal.Body>
+              <div style={{ overflowY: 'auto', height: '100%' }}>
+                <div
                   style={{
-                    height: '30px',
-                    lineHeight: '30px',
-                    padding: '0 20px',
-                    border: '1px solid red',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 20,
                   }}
                 >
-                  <Moment format='YYYY/MM/DD'>{tsk.actualstartdate}</Moment>
-                </span>
-                <div style={{ height: 40, width: '50%' }}>
-                  <ProgressBar percentage={tsk.progress} />
-                </div>
-                <span
-                  style={{
-                    height: '30px',
-                    lineHeight: '30px',
-                    padding: '0 20px',
-                    border: '1px solid red',
-                  }}
-                >
-                  <Moment format='YYYY/MM/DD'>{tsk.actualenddate}</Moment>
-                </span>
-              </div>
-              <div style={{ display: 'flex', gap: 30 }}>
-                <div style={{ width: '60%' }}>
-                  <Formik
-                    enableReinitialize={true}
-                    initialValues={{
-                      description:
-                        tsk === null || !tsk.description ? '' : tsk.description,
-                      progress:
-                        tsk === null || !tsk.progress ? '' : tsk.progress,
-                    }}
-                    onSubmit={(values, { setSubmitting }) => {
-                      {
-                        tsk !== null && dispatch(updateTask(task._id, values));
-                      }
-                      modalRef.current.close();
-                      setSubmitting(false);
+                  <span
+                    style={{
+                      height: '30px',
+                      lineHeight: '30px',
+                      padding: '0 20px',
+                      border: '1px solid red',
                     }}
                   >
-                    <Form>
-                      <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          margin: '20px 0',
-                        }}
-                      >
+                    <Moment format='YYYY/MM/DD'>{tsk.actualstartdate}</Moment>
+                  </span>
+                  <div style={{ height: 40, width: '50%' }}>
+                    <ProgressBar percentage={tsk.progress} />
+                  </div>
+                  <span
+                    style={{
+                      height: '30px',
+                      lineHeight: '30px',
+                      padding: '0 20px',
+                      border: '1px solid red',
+                    }}
+                  >
+                    <Moment format='YYYY/MM/DD'>{tsk.actualenddate}</Moment>
+                  </span>
+                </div>
+                <div style={{ display: 'flex', gap: 30 }}>
+                  <div style={{ width: '60%' }}>
+                    <Formik
+                      enableReinitialize={true}
+                      initialValues={{
+                        description:
+                          tsk === null || !tsk.description
+                            ? ''
+                            : tsk.description,
+                        progress:
+                          tsk === null || !tsk.progress ? '' : tsk.progress,
+                      }}
+                      onSubmit={(values, { setSubmitting }) => {
+                        {
+                          tsk !== null &&
+                            dispatch(updateTask(task._id, values));
+                        }
+                        dispatch(getUserTasks());
+                        // modalRef.current.close();
+                        setToggleModal(!toggleModal);
+                        setSubmitting(false);
+                      }}
+                    >
+                      <Form>
                         <div
                           style={{
                             display: 'flex',
+                            justifyContent: 'space-between',
                             alignItems: 'center',
-                            gap: 10,
+                            margin: '20px 0',
                           }}
                         >
-                          <label htmlFor=''>Progress:</label>
-                          <MyTextInput name='progress' type='number' />
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 10,
+                            }}
+                          >
+                            <label htmlFor=''>Progress:</label>
+                            <MyTextInput name='progress' type='number' />
+                          </div>
+                          <div>
+                            <span>Effort: </span>
+                            <span>
+                              {tsk.effort}
+                              {' hr(s)'}
+                            </span>
+                          </div>
                         </div>
                         <div>
-                          <span>Effort: </span>
-                          <span>
-                            {tsk.effort}
-                            {' hr(s)'}
-                          </span>
+                          <label htmlFor=''>Description</label>
+                          <div
+                            style={{ height: '150px', boxSizing: 'border-box' }}
+                          >
+                            <MyTextarea name='description' type='text' />
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <label htmlFor=''>Description</label>
                         <div
-                          style={{ height: '150px', boxSizing: 'border-box' }}
+                          style={{
+                            margin: '10px 0',
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                          }}
                         >
-                          <MyTextarea name='description' type='text' />
+                          <SubmitButton text={'update'} />
                         </div>
-                      </div>
-                      <div
-                        style={{
-                          margin: '10px 0',
-                          display: 'flex',
-                          justifyContent: 'flex-end',
-                        }}
-                      >
-                        <SubmitButton text={'update'} />
-                      </div>
-                    </Form>
-                  </Formik>
-                </div>
-                <div style={{ width: '40%' }}>
-                  {task === null ? (
-                    <div>No task comments</div>
-                  ) : (
-                    <TaskCommentBox task={tsk} />
-                  )}
+                      </Form>
+                    </Formik>
+                  </div>
+                  <div style={{ width: '40%' }}>
+                    {task === null ? (
+                      <div>No task comments</div>
+                    ) : (
+                      <TaskCommentBox task={tsk} />
+                    )}
+                  </div>
                 </div>
               </div>
-            </Fragment>
-          )}
-        </Fragment>
+            </Modal.Body>
+          </Fragment>
+        )}
       </Modal>
     </>
   );

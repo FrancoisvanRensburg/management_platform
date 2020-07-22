@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { color, zIndexValues, radius, font } from '../../utils/Styles';
 
 export const ModalWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -12,7 +12,7 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalBackdrop = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -22,9 +22,17 @@ export const ModalBackdrop = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
+export const ModalTop = styled.div`
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 120px;
+  z-index: 1100;
+`;
+
 export const ModalBox = styled.div`
-  position: absolute;
-  top: ${(props) => props.top}px;
+  position: relative;
+  /* top: ${(props) => props.top}px; */
   left: 50%;
   transform: translate(-50%, -50%);
   min-height: 30%;

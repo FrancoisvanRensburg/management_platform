@@ -2,7 +2,7 @@ import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 
-import { ModalWrapper, ModalBackdrop, ModalBox } from './Styles';
+import { ModalWrapper, ModalBackdrop, ModalBox, ModalTop } from './Styles';
 
 const propTypes = {
   width: PropTypes.number,
@@ -11,7 +11,6 @@ const propTypes = {
 
 const defaultProps = {
   width: 60,
-  top: 40,
 };
 
 const Modal = forwardRef((props, ref) => {
@@ -36,9 +35,8 @@ const Modal = forwardRef((props, ref) => {
     return ReactDOM.createPortal(
       <ModalWrapper>
         <ModalBackdrop onClick={close} />
-        <ModalBox width={props.width} top={props.top}>
-          {props.children}
-        </ModalBox>
+        <ModalTop id='modaltop' />
+        <ModalBox width={props.width}>{props.children}</ModalBox>
       </ModalWrapper>,
       document.getElementById('modal-root')
     );
