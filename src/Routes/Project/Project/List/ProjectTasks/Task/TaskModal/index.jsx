@@ -52,16 +52,18 @@ const TaskModal = ({ task, project }) => {
         </div>
         {/* Main section */}
         <div>
-          {/* Section header */}
           <div>
-            <h3>{task.taskname}</h3>
-          </div>
-          <div>
-            <div>attach</div>
-            <div>Add checklist</div>
+            {/* Section header */}
             <div>
-              <p>Predecessor</p>
-              <div></div>
+              <h3>{task.taskname}</h3>
+            </div>
+            <div>
+              <div>attach</div>
+              <div>Add checklist</div>
+              <div>
+                <p>Predecessor</p>
+                <div>Task number</div>
+              </div>
             </div>
           </div>
         </div>
