@@ -54,6 +54,22 @@ export const Comment = styled.button`
   }
 `;
 
+export const Cancel = styled.button`
+  padding: 5px 15px;
+  max-width: 150px;
+  ${font.medium}
+  ${font.size(18)};
+  color: ${color.textSubHeading};
+  background-color: ${color.buttonPink};
+  border-radius: ${radius.progressRadius};
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: inset 0px 0px 5px rgba(238, 238, 238, 1);
+  }
+`;
+
 export const DetailOutline = styled.div`
   width: 38px;
   height: 38px;

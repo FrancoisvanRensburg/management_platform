@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
   Submit,
   Comment,
+  Cancel,
   DetailOutline,
   SubmitSml,
   WaffleButton,
@@ -28,6 +29,10 @@ SubmitButtonSm.propTypes = {
 
 export const CommentButton = () => {
   return <Comment>comment</Comment>;
+};
+
+export const CancelButton = () => {
+  return <Cancel>cancel</Cancel>;
 };
 
 export const DetailButton = () => {

@@ -77,5 +77,6 @@ export const Header = styled.div`
 export const Body = styled.div`
   padding: 20px;
   overflow: hidden;
-  height: 500px;
+  /* height: 500px; */
+  height: 70vh;
 `;
